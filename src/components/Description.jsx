@@ -52,7 +52,7 @@ export const Description = ({ open, attractionData, descriptionClose }) => {
           </Toolbar>
         </AppBar>
         <div className="d-flex justify-content-center">
-          <Card className="p-3" sx={{ maxWidth: 545 }}>
+          <Card className="p-3" sx={{ width: 545 }}>
             <CardActionArea>
               <CardMedia
                 component="img"
