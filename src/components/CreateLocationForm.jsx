@@ -8,7 +8,7 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import { TextField } from "@mui/material";
 
-const CreateLocationForm = ({ open, handleClose }) => {
+const CreateLocationForm = ({ open, handleClose ,onCreate}) => {
   const [location, setLocation] = useState({
     name: "",
     detail: "",
@@ -25,7 +25,8 @@ const CreateLocationForm = ({ open, handleClose }) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     handleClose();
-    const response = await createLocation(location);
+    const token = localStorage.getItem("token");
+    const response = await createLocation(location,token);
   
 
     if (response.success) {

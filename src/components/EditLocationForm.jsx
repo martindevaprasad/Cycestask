@@ -17,7 +17,8 @@ const EditLocationForm = ({ locationId, open, handleClose, locationData }) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     handleClose();
-    const response = await updateLocation(location);
+    const token = localStorage.getItem("token");
+    const response = await updateLocation(location,token);
 
     if (response.success) {
     } else {

@@ -31,10 +31,9 @@ const Location = () => {
   const [id, setId] = useState();
   const [create, setCreate] = useState(false);
 
-const [description, setDescription] = useState(false)
+  const [description, setDescription] = useState(false);
   const [edit, setEdit] = useState(false);
-const [selectedAttraction, setSelectedAttraction] = useState()
- 
+  const [selectedAttraction, setSelectedAttraction] = useState();
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -50,14 +49,14 @@ const [selectedAttraction, setSelectedAttraction] = useState()
     }
   };
 
-  
-
   const handlecreateClose = () => {
     setCreate(false);
   };
   const CloseDesctiption = () => {
     setDescription(false);
   };
+
+  
 
   const navigate = useNavigate();
   React.useEffect(() => {
@@ -66,11 +65,9 @@ const [selectedAttraction, setSelectedAttraction] = useState()
         "https://www.melivecode.com/api/attractions"
       );
       setAttractions(response.data);
-      if(response.data){
-        
-        for(let attraction of response.data){
+      if (response.data) {
+        for (let attraction of response.data) {
           getLocationDetail(attraction.id).then((locationData) => {
-           
             attraction.location = locationData.attraction;
           });
         }
@@ -80,11 +77,11 @@ const [selectedAttraction, setSelectedAttraction] = useState()
     fetchAttractions();
   }, []);
 
-  // useEffect(() => {
-  //   getLocationDetail(id).then((locationData) => {
-  //     setLocation(locationData);
-  //   });
-  // }, [id]);
+  const handleCreateAttraction = (newAttraction) => {
+    setAttractions((prevAttractions) => [...prevAttractions, newAttraction]);
+  };
+
+
 
   return (
     <div>
@@ -129,17 +126,16 @@ const [selectedAttraction, setSelectedAttraction] = useState()
       <h1 className="p-3">List of locations</h1>
       <div style={{ padding: "0px", margin: "0px" }} className="row">
         {attractions.map((location) => (
-          <Card 
+          <Card
             className="my-2 mx-2 col-md-3"
             key={location.id}
             sx={{ maxWidth: 345 }}
           >
-            <CardMedia onClick={()=>{
-              setDescription(true);
-              setSelectedAttraction(location)
-
-
-            }}
+            <CardMedia
+              onClick={() => {
+                setDescription(true);
+                setSelectedAttraction(location);
+              }}
               sx={{ height: 140 }}
               image={location.coverimage}
               title="green iguana"
@@ -152,22 +148,24 @@ const [selectedAttraction, setSelectedAttraction] = useState()
                 {location.latitude}
               </Typography>
             </CardContent>
-            <CardActions>
-             
-             
-            </CardActions>
+            <CardActions></CardActions>
           </Card>
         ))}
       </div>
 
       {description === true && (
-        <Description open={open} descriptionClose={CloseDesctiption} attractionData={selectedAttraction}/>
+        <Description
+          open={open}
+          descriptionClose={CloseDesctiption}
+          attractionData={selectedAttraction}
+        />
       )}
       {create === true && (
         <CreateLocationForm
           open={open}
           handleClose={handlecreateClose}
           locationId={id}
+          onCreate={handleCreateAttraction}
         />
       )}
     </div>

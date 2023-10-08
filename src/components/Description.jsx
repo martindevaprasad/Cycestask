@@ -24,7 +24,8 @@ export const Description = ({ open, attractionData, descriptionClose }) => {
   };
 
   const handleDelete = async () => {
-    const response = await deleteLocation(selectedAttraction.id);
+    const token = localStorage.getItem("token");
+    const response = await deleteLocation(selectedAttraction.id,token);
     console.log("hello");
     setEdit(false);
     if (response.success) {

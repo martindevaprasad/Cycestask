@@ -1,15 +1,15 @@
 import axios from "axios";
 
 
-const token = localStorage.getItem("token")
-console.log(token);
+// const token = localStorage.getItem("token")
+// console.log(token);
 
 export const getLocations = async () => {
   const response = await axios.get("https://www.melivecode.com/api/attractions");
   return response.data;
 };
 
-export const createLocation = async (location) => {
+export const createLocation = async (location,token) => {
   const response = await axios.post(
     "https://www.melivecode.com/api/auth/attractions/create",
     location,
@@ -22,7 +22,7 @@ export const createLocation = async (location) => {
   return response.data;
 };
 
-export const updateLocation = async (location) => {
+export const updateLocation = async (location,token) => {
   const response = await axios.put(
     "https://www.melivecode.com/api/auth/attractions/update",
     location,
@@ -35,7 +35,7 @@ export const updateLocation = async (location) => {
   return response.data;
 };
 
-export const deleteLocation = async (id) => {
+export const deleteLocation = async (id,token) => {
   const response = await axios.delete(
     "https://www.melivecode.com/api/auth/attractions/delete",
     {
